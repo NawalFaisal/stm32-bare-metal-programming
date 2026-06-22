@@ -39,28 +39,28 @@ int main(void){
     GPIOC -> MODER &= ~(3<<26);
 
     //variable 
-    int led_state = 0;
-    int last_button_state = 0;
+    // int led_state = 0;
+    // int last_button_state = 0;
 
     while(1){
         
         int button_pressed = !(GPIOC -> IDR >>13) & 1;
           //toggle states
-        if(button_pressed == 1 && last_button_state == 0){
-            if(led_state == 0){
-                led_state = 1;
-            } else{
-                led_state = 0;
-            }
-        }
+        // if(button_pressed == 1 && last_button_state == 0){
+        //     if(led_state == 0){
+        //         led_state = 1;
+        //     } else{
+        //         led_state = 0;
+        //     }
+        // }
 
         //update led based on its state
-        if(led_state == 1 ){
+        if(button_pressed == 1 ){
             GPIOA -> ODR |= (1<<5);
         }   else{
             GPIOA -> ODR &= ~(1<<5);
         }
-        last_button_state = button_pressed;
+        // last_button_state = button_pressed;
         //debounce delay
         for (volatile int i = 0; i < 10000; i++);
 
